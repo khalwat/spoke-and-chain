@@ -10,7 +10,7 @@
     {% include '_includes/layout/favicons' ignore missing with {} only %}
 
     {# Project JS #}
-    {{ craft.vite.script("/src/js/app.ts", false) }}
+    {{ craft.vite.script("src/js/app.ts", false) }}
     {# /Project JS #}
     {{ craft.vite.includeCriticalCssTags('index') }}
 
