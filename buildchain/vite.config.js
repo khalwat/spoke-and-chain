@@ -26,7 +26,8 @@ export default ({ command }) => ({
       criticalUrl: 'http://nginx',
       criticalBase: '../cms/web/dist/criticalcss/',
       criticalPages: [
-        { uri: '/', template: 'index' },
+        { uri: '/', template: '_views/homepage/index' },
+        { uri: '/contact', template: '_views/contact/index' },
       ],
       criticalConfig: {
       }
