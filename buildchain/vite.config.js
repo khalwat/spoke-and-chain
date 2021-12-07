@@ -52,9 +52,15 @@ export default ({ command }) => ({
     alias: {
       '@': path.resolve(__dirname, './src')
     },
+    preserveSymlinks: true,
   },
   server: {
-    origin: 'http://localhost:3000/src/',
+    fs: {
+      strict: false
+    },
     host: '0.0.0.0',
+    origin: 'http://localhost:3000/',
+    port: 3000,
+    strictPort: true,
   }
 });
