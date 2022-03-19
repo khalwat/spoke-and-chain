@@ -12,13 +12,20 @@
 # @link      https://nystudio107.com/
 # @license   MIT
 
-# Wait until the db container responds
-until eval "PGPASSWORD=$DB_PASSWORD psql -h postgres -U $DB_USER $DB_DATABASE -c 'select 1' > /dev/null 2>&1"
+cd /var/www/project/cms
+# Wait until the Postgres db container responds
+until eval "mysql -h mysql -u $DB_USER -p$DB_PASSWORD $DB_DATABASE -e 'select 1' > /dev/null 2>&1"
 do
+    echo "waiting for db"
     sleep 1
 done
+# Wait until the `composer install` is done by looking for the `vendor/autoload.php` file
+while [ ! -f vendor/autoload.php ]
+do
+  echo "waiting for composer.lock"
+  sleep 1
+done
 # Run any pending migrations/project config changes
-cd /var/www/project/cms
 su-exec www-data composer craft-update
 # Run a queue listener
 su-exec www-data php craft queue/listen 10
