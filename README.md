@@ -49,9 +49,9 @@ The Vite dev server for Hot Module Replacement (HMR) serving of static resources
 
 🎉 You're now up and running Nginx, PHP, MySQL 8, Redis, Xdebug, & Vite without having to do any devops!
 
-The first time you do `make dev` it will be slow, because it has to build all of the Docker images.
+The first time you do `make dev` it will be slow, because it has to build all the Docker images.
 
-Subsequent `make dev` commands will be much faster, but still a little slow because we intentionally do a `composer install` and an `npm install` each time, to keep our dependencies in sync.
+Subsequent `make dev` commands will be much faster.
 
 Wait until you see the following to indicate that the PHP container is ready:
 
@@ -70,7 +70,7 @@ vite_1        |
 vite_1        |   ready in 10729ms.
 ```
 
-All of the Twig files, JavaScript, Vue components, CSS, and even the Vite config itself will relfect changes immediately Hot Module Replacement, so feel free to edit things and play around.
+All the Twig files, JavaScript, Vue components, CSS, and even the Vite config itself will reflect changes immediately Hot Module Replacement, so feel free to edit things and play around.
 
 A password-scrubbed seed database will automatically be installed; you can log into the CP at `http://localhost:8000/admin` via these credentials:
 
@@ -85,12 +85,14 @@ To make using it easier, we're using a Makefile and the built-in `make` utility 
 
 - `make dev` - starts up the local dev server listening on `http://localhost:8000/`
 - `make build` - builds the static assets via the Vite buildchain
-- `make clean` - shuts down the Docker containers, removes any mounted volumes (including the database), and then rebuilds the containers from scratch
-- `make update` - causes the project to update to the latest Composer and NPM dependencies
-- `make update-clean` - completely removes `node_modules/` & `vendor/`, then causes the project to update to the latest Composer and NPM dependencies
+- `make clean` - removes the `cms/composer.lock` & the entire `cms/vendor/` directory as well as the `buildchain/package-lock.json` & the entire `buildchain/node_modules/` directory
 - `make composer xxx` - runs the `composer` command passed in, e.g. `make composer install`
 - `make craft xxx` - runs the `craft` [console command](https://craftcms.com/docs/3.x/console-commands.html) passed in, e.g. `make craft project-config/apply` in the php container
 - `make npm xxx` - runs the `npm` command passed in, e.g. `make npm install`
+- `make nuke` - restarts the project from scratch by running `make clean` (above), then shuts down the Docker containers, removes any mounted volumes (including the database), and then rebuilds the containers from scratch
+- `make ssh` - opens up a Unix shell inside the PHP container for the project
+
+**Tip:** If you try a command like `make craft project-config/apply --force` you’ll see an error, because the shell thinks the `--force` flag should be applied to the `make` command. To side-step this, use the `--` (double-dash) to disable further option processing, like this: `make -- craft project-config/apply --force`
 
 ### Things you can try
 
