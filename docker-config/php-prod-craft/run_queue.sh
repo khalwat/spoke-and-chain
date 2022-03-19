@@ -13,7 +13,7 @@
 # @license   MIT
 
 cd /var/www/project/cms
-# Wait until the Postgres db container responds
+# Wait until the MySQL db container responds
 until eval "mysql -h mysql -u $DB_USER -p$DB_PASSWORD $DB_DATABASE -e 'select 1' > /dev/null 2>&1"
 do
   sleep 1
