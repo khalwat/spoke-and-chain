@@ -38,7 +38,6 @@ git clone https://github.com/nystudio107/spoke-and-chain.git
 ```
 make dev
 ```
-(the first build will be somewhat lengthy, ignore the warnings from `queue_1`).
 
 If it appears to hang at `Building php_xdebug`, your PhpStorm or other IDE is likely waiting for an Xdebug connection; quit PhpStorm or stop it from listening for Xdebug during the initial build.
 
@@ -76,6 +75,7 @@ All the Twig files, JavaScript, Vue components, CSS, and even the Vite config it
 
 A password-scrubbed seed database will automatically be installed; you can log into the CP at `http://localhost:8000/admin` via these credentials:
 
+**URL:** `http://localhost:8000/admin` \
 **User:** `admin` \
 **Password:** `password`
 
