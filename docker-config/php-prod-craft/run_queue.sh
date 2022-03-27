@@ -13,8 +13,6 @@
 # @license   MIT
 
 cd /var/www/project/cms
-# Force the permissions to be set properly
-chown -R www-data:www-data /var/www/project &
 # Wait until the MySQL db container responds
 until eval "mysql -h mysql -u $DB_USER -p$DB_PASSWORD $DB_DATABASE -e 'select 1' > /dev/null 2>&1"
 do
@@ -25,6 +23,9 @@ while [ ! -f vendor/autoload.php ]
 do
   sleep 1
 done
+# Ensure permissions on directories Craft needs to write to
+chown -R www-data:www-data /var/www/project/cms/storage
+chown -R www-data:www-data /var/www/project/cms/web/cpresources
 # Run any pending migrations/project config changes
 su-exec www-data composer craft-update
 # Run a queue listener
